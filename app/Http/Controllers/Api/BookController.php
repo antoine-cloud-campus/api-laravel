@@ -31,14 +31,13 @@ class BookController extends Controller
 
         return new BookResource($book);
     }
-
     public function show(Book $book)
     {
         return Cache::remember(
             'book_' . $book->id,
             60 * 60,
             function () use ($book) {
-                return $book;
+                return new BookResource($book);
             }
         );
     }
